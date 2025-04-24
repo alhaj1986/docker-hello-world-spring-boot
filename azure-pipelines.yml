@@ -13,7 +13,7 @@ stages:
   - job: Checkout
     steps:
     - checkout: git
-      persistCredentials: true
+      #persistCredentials: true
       clean: true
       repository: 'https://github.com/alhaj1986/docker-hello-world-spring-boot.git'
       branch: 'master'
