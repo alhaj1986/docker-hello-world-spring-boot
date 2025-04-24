@@ -1,0 +1,97 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+variables:
+- group: javapoc
+
+stages:
+- stage: SCM
+  jobs:
+  - job: Checkout
+    steps:
+    - checkout: git
+      persistCredentials: true
+      clean: true
+      repository: 'https://github.com/alhaj1986/docker-hello-world-spring-boot.git'
+      branch: 'main'
+
+- stage: Build
+  jobs:
+  - job: Build
+    steps:
+    - script: |
+        echo 'Install Dependencies'
+        mvn clean install
+      displayName: 'Install Dependencies'
+    - script: |
+        echo 'Package Build'
+        mvn package
+      displayName: 'Package Build'
+
+- stage: UnitTest
+  jobs:
+  - job: UnitTest
+    steps:
+    - script: |
+        echo 'Running Unit Test'
+        mvn test
+      displayName: 'Running Unit Test'
+
+##- stage: SAST
+  #jobs:
+  #- job: SAST
+    #@steps:
+    #- task: SonarQubePrepare@4
+      #inputs:
+        #SonarQube: 'ibs-sonar'
+        #scannerMode: 'CLI'
+        #configMode: 'manual'
+        #cliProjectKey: 'javahelloworld'
+        #cliProjectName: 'Java HelloWorld'
+        #@cliSources: '.'
+    #- script: |
+        #$(SONAR_SCANNER_HOME)/bin/sonar-scanner
+      #displayName: 'Run SonarQube Scanner'
+
+- stage: DockerBuild
+  jobs:
+  - job: DockerBuild
+    steps:
+    - task: Docker@2
+      inputs:
+        #containerRegistry: 'yourAzureContainerRegistryServiceConnection'
+        repository: '$(DOCKER_IMAGE)'
+        command: 'build'
+        Dockerfile: '**/Dockerfile'
+        tags: 'latest'
+      displayName: 'Docker Build'
+
+- stage: TrivyScan
+  jobs:
+  - job: TrivyScan
+    steps:
+    - script: |
+        echo 'Installing Trivy'
+        curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh -s -- -b /usr/local/bin
+      displayName: 'Install Trivy'
+    - script: |
+        echo 'Scanning Docker Image with Trivy'
+        trivy image --exit-code 1 --severity HIGH,CRITICAL $(DOCKER_IMAGE):latest
+      displayName: 'Trivy Scan'
+
+#- stage: DockerPush
+  #dependsOn: TrivyScan
+  #condition: succeeded()
+  #jobs:
+  #- job: DockerPush
+    #steps:
+    #- task: Docker@2
+      #inputs:
+        #containerRegistry: 'yourAzureContainerRegistryServiceConnection'
+        #repository: '$(DOCKER_IMAGE)'
+        #command: 'push'
+        #tags: 'latest'
+      #displayName: 'Docker Push'
