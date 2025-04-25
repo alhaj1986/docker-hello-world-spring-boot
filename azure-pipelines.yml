@@ -15,6 +15,13 @@ steps:
   displayName: 'Maven Build'
   inputs:
     goals: 'clean install'
+    options: '-DskipTests'
+
+- task: Maven@3
+  displayName: 'Run Tests and Generate Code Coverage Report'
+  inputs:
+    goals: 'test'
+    options: '-Pcoverage'
 
 - task: SonarQubePrepare@5
   displayName: 'Prepare analysis on SonarQube'
@@ -25,6 +32,8 @@ steps:
     cliProjectKey: '$(sonarProjectKey)'
     cliProjectName: '$(sonarProjectName)'
     cliSources: '.'
+    extraProperties: |
+      sonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
 
 - task: Maven@3
   displayName: 'Run SonarQube Scanner via Maven'
@@ -40,11 +49,6 @@ steps:
   displayName: 'Publish Quality Gate Result'
   inputs:
     pollingTimeoutSec: '300'
-
-- task: Maven@3
-  displayName: 'Maven Test'
-  inputs:
-    goals: 'test'
 
 - task: Docker@2
   displayName: 'Build Docker image'
