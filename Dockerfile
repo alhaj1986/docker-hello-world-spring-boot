@@ -1,27 +1,13 @@
-# Maven build container 
+# Use an official Maven image to build the application
+FROM maven:3.8.1-openjdk-11 AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean install
 
-FROM maven:3.8.5-openjdk-11 AS maven_build
-
-COPY pom.xml /tmp/
-
-COPY src /tmp/src/
-
-WORKDIR /tmp/
-
-RUN mvn package
-
-#pull base image
-
-FROM eclipse-temurin:11
-
-#maintainer 
-MAINTAINER dstar55@yahoo.com
-#expose port 8080
+# Use an official OpenJDK runtime as a parent image
+FROM openjdk:11-jre-slim
+WORKDIR /app
+COPY --from=build /app/target/your-app.jar /app/your-app.jar
 EXPOSE 8080
-
-#default command
-CMD java -jar /data/hello-world-0.1.0.jar
-
-#copy hello world to docker image from builder image
-
-COPY --from=maven_build /tmp/target/hello-world-0.1.0.jar /data/hello-world-0.1.0.jar
+ENTRYPOINT ["java", "-jar", "java-helloworld-app.jar"]
