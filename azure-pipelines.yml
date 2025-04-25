@@ -35,8 +35,6 @@ steps:
     curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
   displayName: 'Install Trivy'
 
-- task: Trivy@2
-  displayName: 'Trivy Scan'
-  inputs:
-    command: 'image'
-    imageName: '$(imageName):$(Build.BuildId)'
+- script: |
+    ./trivy image $(imageName):$(Build.BuildId)
+  displayName: 'Scan Docker image with Trivy'
