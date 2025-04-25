@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  vmImage: 'debian-11'
+  name: 'selfhosted'
 
 variables:
   imageName: 'docker-hello-world-spring-boot'
@@ -31,10 +31,10 @@ steps:
     tags: |
       $(Build.BuildId)
 
-- script: |
-    curl -sfL https://raw.githubusercontent.com/aquasecurity/trivy/main/contrib/install.sh | sh
-  displayName: 'Install Trivy'
-
-- script: |
-    ./trivy image $(imageName):$(Build.BuildId)
-  displayName: 'Scan Docker image with Trivy'
+- task: Docker@2
+  displayName: 'Run Trivy Scan'
+  inputs:
+    #containerRegistry: '<your-container-registry-service-connection>'
+    repository: 'aquasec/trivy'
+    command: 'run'
+    arguments: 'image $(imageName):$(Build.BuildId)'
