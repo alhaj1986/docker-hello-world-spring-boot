@@ -22,11 +22,11 @@ steps:
     goals: 'test'
 
 - task: Docker@2
-  displayName: 'Build and push Docker image'
+  displayName: 'Build Docker image'
   inputs:
     #containerRegistry: '<your-container-registry-service-connection>'
     repository: '$(imageName)'
-    command: 'buildAndPush'
+    command: 'build'
     Dockerfile: '**/Dockerfile'
     tags: |
       $(Build.BuildId)
