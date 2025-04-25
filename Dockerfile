@@ -6,8 +6,13 @@ COPY src ./src
 RUN mvn clean install
 
 # Use an official OpenJDK runtime as a parent image
-FROM openjdk:11-jre-slim
+FROM openjdk:11-jre-slim AS runtime
 WORKDIR /app
 COPY --from=build /app/target/*.jar /app/app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
+
+# Use an official Trivy image to scan the Docker image
+FROM aquasec/trivy:latest AS trivy
+WORKDIR /app
+COPY --from=runtime /app/app.jar /app/app.jar
