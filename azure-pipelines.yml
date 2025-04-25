@@ -16,6 +16,16 @@ steps:
   inputs:
     goals: 'clean install'
 
+- task: SonarQubePrepare@5
+  displayName: 'Prepare analysis on SonarQube'
+  inputs:
+    SonarQube: 'awssonarserver'  # Replace with your SonarQube service connection name
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: '$(sonarProjectKey)'
+    cliProjectName: '$(sonarProjectName)'
+    cliSources: '.'
+
 - task: Maven@3
   displayName: 'Run SonarQube Scanner via Maven'
   inputs:
@@ -25,6 +35,11 @@ steps:
       -Dsonar.projectName=$(sonarProjectName)
       -Dsonar.host.url=$(sonarHostUrl)
       -Dsonar.login=$(sonarLogin)
+
+- task: SonarQubePublish@5
+  displayName: 'Publish Quality Gate Result'
+  inputs:
+    pollingTimeoutSec: '300'
 
 - task: Maven@3
   displayName: 'Maven Test'
