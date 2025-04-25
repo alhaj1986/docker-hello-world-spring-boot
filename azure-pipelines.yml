@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  name: 'selfhosted'
+  vmImage: 'debian-11'
 
 variables:
   imageName: 'docker-hello-world-spring-boot'
