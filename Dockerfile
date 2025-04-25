@@ -15,4 +15,4 @@ ENTRYPOINT ["java", "-jar", "app.jar"]
 # Use an official Trivy image to scan the Docker image
 FROM aquasec/trivy:latest AS trivy
 WORKDIR /app
-COPY --from=runtime /app/app.jar /app/app.jar
+COPY --from=build /app/target/*.jar /app/app.jar
