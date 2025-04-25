@@ -8,6 +8,6 @@ RUN mvn clean install
 # Use an official OpenJDK runtime as a parent image
 FROM openjdk:11-jre-slim
 WORKDIR /app
-COPY --from=build /app/target/your-app.jar /app/your-app.jar
+COPY --from=build /app/target/java-helloworld-app.jar /app/java-helloworld-app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "java-helloworld-app.jar"]
