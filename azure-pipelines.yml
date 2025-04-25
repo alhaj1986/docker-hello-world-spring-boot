@@ -37,4 +37,4 @@ steps:
     #containerRegistry: '<your-container-registry-service-connection>'
     repository: 'aquasec/trivy'
     command: 'run'
-    arguments: 'image $(imageName):$(Build.BuildId)'
+    arguments: '$(imageName):$(Build.BuildId)'
