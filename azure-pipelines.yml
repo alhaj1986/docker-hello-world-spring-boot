@@ -11,19 +11,7 @@ steps:
 - checkout: self
   displayName: 'Checkout source code'
 
-- task: Maven@3
-  displayName: 'Maven Build'
-  inputs:
-    goals: 'clean install'
-    options: '-DskipTests'
-
-- task: Maven@3
-  displayName: 'Run Tests and Generate Code Coverage Report'
-  inputs:
-    goals: 'test'
-    options: '-Pcoverage'
-
-- task: SonarQubePrepare@5
+- task: SonarQubePrepare@7
   displayName: 'Prepare analysis on SonarQube'
   inputs:
     SonarQube: 'awssonarserver'  # Replace with your SonarQube service connection name
@@ -35,26 +23,14 @@ steps:
     extraProperties: |
       sonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
 
-#- task: Maven@3
-  #displayName: 'Run SonarQube Scanner via Maven'
-  #inputs:
-    #goals: 'mvn sonar:sonar'
-    #options: >
-      #-Dsonar.projectKey=$(sonarProjectKey)
-      #-Dsonar.projectName=$(sonarProjectName)
-      #-Dsonar.host.url=$(sonarHostUrl)
-      #-Dsonar.login=$(sonarLogin)
-
-#- task: SonarQubePublish@5
-  #displayName: 'Publish Quality Gate Result'
-  #inputs:
-    #pollingTimeoutSec: '300'
-
-- task: SonarQubeAnalyze@7
+- task: Maven@3
+  displayName: 'Maven Build and SonarQube Analysis'
   inputs:
-    jdkversion: 'JAVA_HOME_17_X64'
+    goals: 'clean install sonar:sonar'
+    options: '-DskipTests -Dsonar.projectKey=$(sonarProjectKey) -Dsonar.projectName=$(sonarProjectName) -Dsonar.host.url=$(sonarHostUrl) -Dsonar.login=$(sonarLogin)'
 
 - task: SonarQubePublish@7
+  displayName: 'Publish Quality Gate Result'
   inputs:
     pollingTimeoutSec: '300'
 
