@@ -8,13 +8,12 @@ variables:
 - group: javapoc  # Link to the 'javapoc' Variable Group
 
 steps:
-- task: UseJavaVersion@1
-  displayName: 'Set Java version to 11'
+- task: JavaToolInstaller@0
+  displayName: 'Install Java 11'
   inputs:
     versionSpec: '11'
     jdkArchitectureOption: 'x64'
     jdkSourceOption: 'PreInstalled'
-    jdkDestinationDirectory: '$(Agent.ToolsDirectory)/Java_11'
 
 - checkout: self
   displayName: 'Checkout source code'
