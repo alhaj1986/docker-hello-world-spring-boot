@@ -8,12 +8,6 @@ variables:
 - group: javapoc  # Link to the 'javapoc' Variable Group
 
 steps:
-- task: JavaToolInstaller@0
-  displayName: 'Install Java 11'
-  inputs:
-    versionSpec: '11'
-    jdkArchitectureOption: 'x64'
-    jdkSourceOption: 'PreInstalled'
 
 - checkout: self
   displayName: 'Checkout source code'
