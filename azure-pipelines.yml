@@ -38,7 +38,7 @@ steps:
 - task: Maven@3
   displayName: 'Run SonarQube Scanner via Maven'
   inputs:
-    goals: 'sonar:sonar'
+    goals: 'mvn sonar:sonar'
     options: >
       -Dsonar.projectKey=$(sonarProjectKey)
       -Dsonar.projectName=$(sonarProjectName)
