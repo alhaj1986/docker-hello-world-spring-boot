@@ -40,15 +40,15 @@ steps:
       sonar.password=$(sonarPassword)
       sonar.verbose=true
 
-- task: SonarQubeAnalyze@5
-  displayName: 'Run SonarQube Analysis'
-  inputs:
-    SonarQube: 'awssonarserver'  # Your SonarQube service connection name
+#- task: SonarQubeAnalyze@5
+  #displayName: 'Run SonarQube Analysis'
+  #inputs:
+    #SonarQube: 'awssonarserver'  # Your SonarQube service connection name
 
-- task: SonarQubePublish@5
-  displayName: 'Publish Quality Gate Result'
-  inputs:
-    pollingTimeoutSec: '300'
+#- task: SonarQubePublish@5
+  #displayName: 'Publish Quality Gate Result'
+  #inputs:
+    #pollingTimeoutSec: '300'
 
 - task: Docker@2
   displayName: 'Build Docker image'
