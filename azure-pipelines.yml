@@ -67,6 +67,7 @@ steps:
   displayName: 'Configure AWS credentials'
   inputs:
     awsCredentials: 'awsconnection'  # Replace with your AWS service connection name
+    awsCommand: 'configure'
 
 - script: |
     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 920373030046.dkr.ecr.us-east-1.amazonaws.com
