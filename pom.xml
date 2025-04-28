@@ -18,8 +18,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        </dependency>
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -37,7 +35,7 @@
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
+               >spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -48,7 +46,8 @@
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
-                                           <id>report</id>
+                    </execution>
+                   report</id>
                         <phase>prepare-package</phase>
                         <goals>
                             <goal>report</goal>
@@ -60,6 +59,7 @@
                 <groupId>org.sonarsource.scanner.maven</groupId>
                 <artifactId>sonar-maven-plugin</artifactId>
                 <version>3.7.0.1746</version>
-                   </plugins>
+            </plugin>
+        </plugins>
     </build>
 </project>
