@@ -63,14 +63,19 @@ steps:
     docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image $(imageName):$(Build.BuildId)
   displayName: 'Scan Docker image with Trivy'
 
+- task: AwsCli@1
+  displayName: 'Configure AWS credentials'
+  inputs:
+    awsCredentials: 'awsconnection'  # Replace with your AWS service connection name
+
 - script: |
     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 920373030046.dkr.ecr.us-east-1.amazonaws.com
   displayName: 'Login to AWS ECR'
 
 - script: |
-    docker tag azurejavaimage:latest 920373030046.dkr.ecr.us-east-1.amazonaws.com/azurejavaimage:latest
+    docker tag $(imageName):$(Build.BuildId) 920373030046.dkr.ecr.us-east-1.amazonaws.com/$(imageName):$(Build.BuildId)
   displayName: 'Tag Docker image'
 
 - script: |
-    docker push 920373030046.dkr.ecr.us-east-1.amazonaws.com/azurejavaimage:latest
+    docker push 920373030046.dkr.ecr.us-east-1.amazonaws.com/$(imageName):$(Build.BuildId)
   displayName: 'Push Docker image to AWS ECR'
