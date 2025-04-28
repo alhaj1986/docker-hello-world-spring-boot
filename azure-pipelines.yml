@@ -40,11 +40,10 @@ steps:
       sonar.password=$(sonarPassword)
       sonar.verbose=true
 
-- task: Maven@3
-  displayName: 'Maven Build with SonarQube Analysis'
+- task: SonarQubeAnalyze@5
+  displayName: 'Run SonarQube Analysis'
   inputs:
-    goals: 'clean install mvn sonar:sonar'
-    options: '-DskipTests'
+    SonarQube: 'awssonarserver'  # Your SonarQube service connection name
 
 - task: SonarQubePublish@5
   displayName: 'Publish Quality Gate Result'
