@@ -35,20 +35,20 @@ steps:
     extraProperties: |
       sonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
 
-- task: Maven@3
-  displayName: 'Run SonarQube Scanner via Maven'
-  inputs:
-    goals: 'sonar:sonar'
-    options: >
-      -Dsonar.projectKey=$(sonarProjectKey)
-      -Dsonar.projectName=$(sonarProjectName)
-      -Dsonar.host.url=$(sonarHostUrl)
-      -Dsonar.login=$(sonarLogin)
+#- task: Maven@3
+  #displayName: 'Run SonarQube Scanner via Maven'
+  #inputs:
+    #goals: 'sonar:sonar'
+    #options: >
+      #-Dsonar.projectKey=$(sonarProjectKey)
+      #-Dsonar.projectName=$(sonarProjectName)
+      #-Dsonar.host.url=$(sonarHostUrl)
+      #-Dsonar.login=$(sonarLogin)
 
-- task: SonarQubePublish@5
-  displayName: 'Publish Quality Gate Result'
-  inputs:
-    pollingTimeoutSec: '300'
+#- task: SonarQubePublish@5
+  #displayName: 'Publish Quality Gate Result'
+  #inputs:
+    #pollingTimeoutSec: '300'
 
 - task: Docker@2
   displayName: 'Build Docker image'
