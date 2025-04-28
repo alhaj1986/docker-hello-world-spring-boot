@@ -18,24 +18,27 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.13.1</version>
-            <scope>test</scope>
         </dependency>
+
+		<dependency>
+		    <groupId>junit</groupId>
+		    <artifactId>junit</artifactId>
+		    <version>4.13.1</version>
+		    <scope>test</scope>
+		</dependency>
+        
     </dependencies>
 
     <properties>
         <start-class>com.dockerforjavadevelopers.hello.Application</start-class>
-        <log4j2.version>2.17.0</log4j2.version>
+		<log4j2.version>2.17.0</log4j2.version>
     </properties>
 
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
-               >spring-boot-maven-plugin</artifactId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
@@ -47,7 +50,8 @@
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
-                   report</id>
+                    <execution>
+                        <id>report</id>
                         <phase>prepare-package</phase>
                         <goals>
                             <goal>report</goal>
@@ -55,11 +59,7 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.sonarsource.scanner.maven</groupId>
-                <artifactId>sonar-maven-plugin</artifactId>
-                <version>3.7.0.1746</version>
-            </plugin>
         </plugins>
     </build>
+
 </project>
