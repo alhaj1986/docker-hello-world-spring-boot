@@ -34,7 +34,7 @@ steps:
     cliSources: '.'
     extraProperties: |
       sonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-      sonar.host.url=https://34.207.231.98:8080
+      sonar.host.url=34.207.231.98:8080
       sonar.login=$(sonarLogin)
       sonar.password=$(sonarPassword)
       sonar.verbose=true
