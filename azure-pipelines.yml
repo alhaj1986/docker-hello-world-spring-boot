@@ -43,7 +43,7 @@ steps:
 - task: Maven@3
   displayName: 'Maven Build with SonarQube Analysis'
   inputs:
-    goals: 'clean install sonar:sonar'
+    goals: 'clean install mvn sonar:sonar'
     options: '-DskipTests'
 
 - task: SonarQubePublish@5
