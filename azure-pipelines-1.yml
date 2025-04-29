@@ -73,6 +73,10 @@ steps:
 - script: |
     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 920373030046.dkr.ecr.us-east-1.amazonaws.com
   displayName: 'Login to AWS ECR'
+  env:
+    AWS_ACCESS_KEY_ID: $(aws_access_key_id)
+    AWS_SECRET_ACCESS_KEY: $(aws_secret_access_key)
+    AWS_SESSION_TOKEN: $(aws_session_token)
 
 - script: |
     docker tag azurejavaimage:latest 920373030046.dkr.ecr.us-east-1.amazonaws.com/azurejavaimage:latest
