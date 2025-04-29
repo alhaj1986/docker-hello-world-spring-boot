@@ -8,7 +8,6 @@ variables:
 - group: javapoc  # Link to the 'javapoc' Variable Group
 
 steps:
-
 - checkout: self
   displayName: 'Checkout source code'
 
@@ -21,7 +20,6 @@ steps:
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.11'
-    jdkArchitectureOption: 'x64'
-    goals: 'clearn install sonar:sonar'
+    javaHomeOption: 'Path'
+    jdkDirectory: '$(JAVA_HOME_11_X64)'
+    goals: 'clean install sonar:sonar'
