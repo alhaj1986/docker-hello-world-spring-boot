@@ -1,12 +1,12 @@
 # Use an official Maven image to build the application
-FROM maven:3.8.1-openjdk-11 AS build
+FROM maven:3.8.1-amazoncorretto-17 AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
 RUN mvn clean install
 
-# Use an official OpenJDK runtime as a parent image
-FROM openjdk:11-jre-slim AS runtime
+# Use Amazon Corretto 17 runtime as a parent image
+FROM amazoncorretto:17 AS runtime
 WORKDIR /app
 COPY --from=build /app/target/*.jar /app/app.jar
 EXPOSE 8080
