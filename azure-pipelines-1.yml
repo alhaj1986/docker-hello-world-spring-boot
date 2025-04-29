@@ -48,7 +48,10 @@ steps:
       $(Build.BuildId)
 
 - script: |
-    docker rmi $(imageName):previous-tag
+    previous_build_id=$(docker images --format "{{.Tag}}" $(imageName) | grep -v latest | sort -r | head -n 1)
+    if [ -n "$previous_build_id" ]; then
+      docker rmi $(imageName):$previous_build_id
+    fi
   displayName: 'Remove previous Docker image'
 
 - script: |
