@@ -40,7 +40,7 @@ steps:
 - task: Docker@2
   displayName: 'Build Docker image'
   inputs:
-    repository: '$(imageName)'
+    repository: 'azurejavaimage'
     command: 'build'
     Dockerfile: '**/Dockerfile'
     tags: |
@@ -48,14 +48,14 @@ steps:
       $(Build.BuildId)
 
 - script: |
-    previous_build_id=$(docker images --format "{{.Tag}}" $(imageName) | grep -v latest | sort -r | head -n 1)
+    previous_build_id=$(docker images --format "{{.Tag}}" azurejavaimage | grep -v latest | sort -r | head -n 1)
     if [ -n "$previous_build_id" ]; then
-      docker rmi $(imageName):$previous_build_id
+      docker rmi azurejavaimage:$previous_build_id
     fi
   displayName: 'Remove previous Docker image'
 
 - script: |
-    docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image $(imageName):latest
+    docker run --rm -v /var/run/docker.sock:/var/run/docker.sock aquasec/trivy image azurejavaimage:latest
   displayName: 'Scan Docker image with Trivy'
 
 - script: |
