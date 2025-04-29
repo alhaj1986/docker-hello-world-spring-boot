@@ -16,15 +16,12 @@ steps:
     SonarQube: 'awssonarserver'
     scannerMode: 'other'
 
-- script: |
-    export JAVA_HOME=/usr/lib/jvm/java-11-amazon-corretto.aarch64
-    export PATH=$JAVA_HOME/bin:$PATH
-  displayName: 'Set JAVA_HOME'
 
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
     javaHomeOption: 'Path'
-    jdkUserInputPath: '/usr/lib/jvm/java-11-amazon-corretto.aarch64'
+    jdkVersionOption: '17'
+    jdkArchitectureOption: 'x64'
     goals: 'clean install sonar:sonar'
