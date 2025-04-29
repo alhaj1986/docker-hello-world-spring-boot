@@ -1,10 +1,8 @@
-# Use an official Maven image to build the application
-FROM maven:3.8.1 AS build
+# Use an official Maven image with OpenJDK 17 to build the application
+FROM maven:3.8.1-openjdk-17 AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
-RUN yum -y update && yum -y install java-17-openjdk-devel
-ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk
 RUN mvn clean install
 
 # Use Amazon Corretto 17 runtime as a parent image
