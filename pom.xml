@@ -14,8 +14,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-    <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+           </artifactId>
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
@@ -26,7 +30,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
-        <build>
+        </dependency>
+    </dependencies>
+
+    <build>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
