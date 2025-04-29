@@ -3,6 +3,8 @@ FROM maven:3.8.1 AS build
 WORKDIR /app
 COPY pom.xml .
 COPY src ./src
+RUN apt-get update && apt-get install -y openjdk-17-jdk
+ENV JAVA_HOME /usr/lib/jvm/java-17-openjdk-amd64
 RUN mvn clean install
 
 # Use Amazon Corretto 17 runtime as a parent image
