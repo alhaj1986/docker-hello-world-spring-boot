@@ -22,6 +22,6 @@ steps:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
     javaHomeOption: 'Path'
-    jdkVersionOption: '17'
+    jdkUserInputPath: '/usr/lib/jvm/java-17-amazon-corretto.aarch64'
     jdkArchitectureOption: 'x64'
     goals: 'clean install sonar:sonar'
