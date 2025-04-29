@@ -1,0 +1,27 @@
+trigger:
+- main
+
+pool:
+  name: 'selfhosted'
+
+variables:
+- group: javapoc  # Link to the 'javapoc' Variable Group
+
+steps:
+
+- checkout: self
+  displayName: 'Checkout source code'
+
+- task: SonarQubePrepare@7
+  inputs:
+    SonarQube: 'awssonarserver'
+    scannerMode: 'other'
+
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    mavenOptions: '-Xmx3072m'
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.11'
+    jdkArchitectureOption: 'x64'
+    goals: 'clearn install sonar:sonar'
