@@ -37,6 +37,13 @@ steps:
     goals: 'test'
     options: '-Pcoverage'
 
+- task: PublishCodeCoverageResults@1
+  displayName: 'Publish Code Coverage Results'
+  inputs:
+    codeCoverageTool: 'JaCoCo'
+    summaryFileLocation: '$(System.DefaultWorkingDirectory)/**/target/site/jacoco/jacoco.xml'
+    reportDirectory: '$(System.DefaultWorkingDirectory)/**/target/site/jacoco'
+
 - task: Docker@2
   displayName: 'Build Docker image'
   inputs:
