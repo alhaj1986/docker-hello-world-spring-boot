@@ -21,9 +21,9 @@ steps:
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'Path'
-    jdkUserInputPath: '/usr/lib/jvm/java-17-amazon-corretto.aarch64'
-    jdkArchitectureOption: 'x64'
+    #javaHomeOption: 'Path'
+    #jdkUserInputPath: '/usr/lib/jvm/java-17-amazon-corretto.aarch64'
+    #jdkArchitectureOption: 'x64'
     goals: 'clean install sonar:sonar'
 
 - task: Maven@3
@@ -31,9 +31,9 @@ steps:
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
-    javaHomeOption: 'Path'
-    jdkUserInputPath: '/usr/lib/jvm/java-17-amazon-corretto.aarch64'
-    jdkArchitectureOption: 'x64'
+    #javaHomeOption: 'Path'
+    #jdkUserInputPath: '/usr/lib/jvm/java-17-amazon-corretto.aarch64'
+    #jdkArchitectureOption: 'x64'
     goals: 'test'
     options: '-Pcoverage'
 
