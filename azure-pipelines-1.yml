@@ -2,7 +2,7 @@ trigger:
 - main
 
 pool:
-  name: 'selfhosted'
+  vmImage: ubuntu-latest
 
 variables:
 - group: javapoc  # Link to the 'javapoc' Variable Group
